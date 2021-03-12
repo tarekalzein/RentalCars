@@ -43,10 +43,9 @@
   <ItemGroup>
     <Compile Include="models\Booking.cs" />
     <Compile Include="models\Car.cs" />
-    <Compile Include="models\CompactCar.cs" />
+    <Compile Include="models\CarCategory.cs" />
+    <Compile Include="models\Constants.cs" />
     <Compile Include="models\Customer.cs" />
-    <Compile Include="models\MinivanCar.cs" />
-    <Compile Include="models\PremiumCar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
