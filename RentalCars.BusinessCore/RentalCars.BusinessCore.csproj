@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,15 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="interfaces\IBookingRepository.cs" />
+    <Compile Include="interfaces\ICarCategoriesRepository.cs" />
+    <Compile Include="interfaces\ICarRepository.cs" />
+    <Compile Include="interfaces\IRepository.cs" />
+    <Compile Include="interfaces\IUnitOfWork.cs" />
     <Compile Include="models\Booking.cs" />
     <Compile Include="models\Car.cs" />
     <Compile Include="models\CarCategory.cs" />
     <Compile Include="models\Constants.cs" />
     <Compile Include="models\Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="interfaces\" />
+    <Compile Include="TestManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

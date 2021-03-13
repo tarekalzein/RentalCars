@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RentalCars.BusinessCore;
+using RentalCars.BusinessCore.models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,18 @@ namespace RentalCars
     /// </summary>
     public partial class MainWindow : Window
     {
+        private TestManager manager;
         public MainWindow()
         {
             InitializeComponent();
+            manager = new TestManager();
+            ActiveRentals_datagrid.ItemsSource = manager.GetActiveBookings();
+        }
+
+        private void NewBooking_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            BookingWindow bookingWindow = new BookingWindow();
+            bookingWindow.Show();
         }
     }
 }

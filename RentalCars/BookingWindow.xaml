@@ -1,0 +1,29 @@
+﻿<Window x:Class="RentalCars.BookingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentalCars"
+        mc:Ignorable="d"
+        Title="Booking Window" Height="170" Width="360">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Content="Customer's date of birth:"/>
+        <TextBox Grid.Column="1"/>
+        <Label Grid.Row="1" Content="Car registration number:"/>
+        <TextBox Grid.Row="1" Grid.Column="1"/>
+        <Label Grid.Row="2" Content="Current Car Milage:"/>
+        <TextBlock Grid.Row="2" Grid.Column="2"/>
+        <Button Grid.Row="3" Content="Save" Margin="10"/>
+        <Button Grid.Column="3" Grid.Row="3" Content="Cancel" Margin="10" Click="Button_Click"/>
+    </Grid>
+</Window>
