@@ -10,6 +10,15 @@ namespace RentalCars.BusinessCore.models
     {
         public int Id { get; set; }
 
+        public string Name { get; set; }
+
+        public int Personnummer { get; set; }
+
         public DateTime Birthdate { get; set; }
+
+        public Customer()
+        {
+
+        }
     }
 }

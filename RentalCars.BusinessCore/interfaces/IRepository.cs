@@ -13,8 +13,8 @@ namespace RentalCars.BusinessCore.interfaces
     /// <typeparam name="TEntity">Generic Entity</typeparam>
     public interface IRepository<TEntity> where TEntity : class
     {
-        TEntity Get(int id);
-        IEnumerable<TEntity> GetEntities();
+        TEntity Get(dynamic id);
+        IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
         void Add(TEntity entity);
@@ -23,6 +23,6 @@ namespace RentalCars.BusinessCore.interfaces
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
 
-        void Update(int id, TEntity updatedEntity);
+        void Update(dynamic id, TEntity updatedEntity);
     }
 }

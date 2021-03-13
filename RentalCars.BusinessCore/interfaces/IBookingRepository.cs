@@ -10,4 +10,6 @@ namespace RentalCars.BusinessCore.interfaces
     public interface IBookingRepository : IRepository<Booking>
     {
     }
+
+   
 }

@@ -20,5 +20,17 @@ namespace RentalCars.BusinessCore.models
 
         public bool IsRented { get; set; }
 
+
+        private Car()
+        {
+
+        }
+        public Car(string regNr, CarCategory category, int milage)
+        {
+            RegNr = regNr;
+            Category = category;
+            Milage = milage;
+            IsRented = false;
+        }
     }
 }

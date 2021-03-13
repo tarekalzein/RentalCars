@@ -16,7 +16,7 @@ namespace RentalCars.BusinessCore.models
 
         public DateTime RentalDateTime { get; set; }
 
-        public DateTime ReturnDateTime { get; set; }
+        public DateTime? ReturnDateTime { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -24,6 +24,19 @@ namespace RentalCars.BusinessCore.models
 
         //Functionality can extended to save list of customers.
         //public Customer Customer { get; set; }
+        private Booking()
+        {
+
+        }
+        public Booking(Car rentedCar, DateTime rentalDateTime, DateTime customerBirthdate)
+        {
+            RentedCar = rentedCar;
+            RentalDateTime = rentalDateTime;
+            ReturnDateTime = null;
+            IsActive = true;
+            CustomerBirthdate = customerBirthdate;
+        }
+
 
     }
 }
