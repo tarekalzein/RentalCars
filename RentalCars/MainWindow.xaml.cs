@@ -1,4 +1,5 @@
-﻿using RentalCars.BusinessCore;
+﻿using RentalCars.BLL;
+using RentalCars.BusinessCore;
 using RentalCars.BusinessCore.models;
 using RentalCars.DataAccess;
 using System;
@@ -23,16 +24,17 @@ namespace RentalCars
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TestManager manager;
-        UnitOfWork unitOfWork = new UnitOfWork(new RentalCarsDbContext());
+        BLLHandler handler;
+
         public MainWindow()
         {
             InitializeComponent();
-            manager = new TestManager();
-            //ActiveRentals_datagrid.ItemsSource = unitOfWork.Bookings.GetAll();
-            Booking booking = new Booking(unitOfWork.Cars.GetAll().ToList()[0],DateTime.Now,new DateTime(1985,01,23));
-            unitOfWork.Bookings.Add(booking);
-
+            handler = new BLLHandler();
+            CarCategory test = new CarCategory("Premium", 1, 1);
+            if (handler.CreateCarCategory(test))
+                MessageBox.Show("Done");
+            else
+                MessageBox.Show("FAILED");
         }
 
         private void NewBooking_ButtonClick(object sender, RoutedEventArgs e)

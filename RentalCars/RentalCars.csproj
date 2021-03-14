@@ -114,6 +114,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RentalCars.BLL\RentalCars.BLL.csproj">
+      <Project>{2178BF56-AED4-4BA5-B41C-488A756939AD}</Project>
+      <Name>RentalCars.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RentalCars.BusinessCore\RentalCars.BusinessCore.csproj">
       <Project>{AF40AA8F-D513-46DD-89E1-547448CA4905}</Project>
       <Name>RentalCars.BusinessCore</Name>
