@@ -103,15 +103,8 @@ namespace RentalCars.BLL
         }
 
         public double CalculateRentPrice(TimeSpan ts, CarCategory carCategory, int milage)
-        {            
-                int days = ts.Days;
-                int hours = ts.Hours;
-                int minutes = ts.Minutes;
-                if (minutes > 0)
-                    minutes += 1;
-                if (hours > 0)
-                    days += 1;
-
+        {
+            int days = (int)Math.Ceiling(ts.TotalDays);
                 double price = (Constants.BaseDayRental * days * carCategory.BaseRentalMultiplier)
                     + (Constants.KilometerPrice * milage * carCategory.KilometerPriceMultiplier);
                 return price;            
