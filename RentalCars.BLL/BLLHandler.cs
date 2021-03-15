@@ -27,6 +27,7 @@ namespace RentalCars.BLL
             //1- Check if booking info is correct
             //2- check if car is not rented
             //3- save changes
+            //4- return true for success and booking nr.
             if (booking == null || booking.RentedCar.IsRented == true)
             {
                 bookingNr = -1;
@@ -37,10 +38,14 @@ namespace RentalCars.BLL
                 try
                 {
                     unitOfWork.Bookings.Add(booking);
-                    Car car = unitOfWork.Cars.Get(booking.BookingNr);
+                    unitOfWork.Complete();
+
+                    Car car = unitOfWork.Cars.Get(booking.RentedCar.RegNr);
                     car.IsRented = true;
                     unitOfWork.Cars.Update(car.RegNr, car);
+
                     unitOfWork.Complete();
+
                     bookingNr = booking.BookingNr;
                     return true;
                 }
@@ -50,6 +55,12 @@ namespace RentalCars.BLL
                     return false;
                 }
             }
+            //Implement better feedback on why creation failed (error in db, duplicate, car status change error etc.)
+        }
+
+        public void UpdateBooking(Booking booking)
+        {
+            unitOfWork.Bookings.Update(booking.BookingNr, booking);
         }
 
         public List<Car> GetAllCars() => unitOfWork.Cars.GetAll().ToList();
@@ -70,10 +81,16 @@ namespace RentalCars.BLL
                 unitOfWork.Complete();
                 return true;
             }
-            catch
+            catch(Exception e)
             {
                 return false;
             }
+        }
+
+        public void RemoveCar(Car car)
+        {
+            unitOfWork.Cars.Remove(car);
+            unitOfWork.Complete();
         }
 
         public List<CarCategory> GetAllCarCategories() => unitOfWork.CarCategories.GetAll().ToList();
@@ -86,6 +103,8 @@ namespace RentalCars.BLL
                 return false;
 
             if (unitOfWork.CarCategories.GetAll().Where(x => x.Category.ToLower() == carCategory.Category.ToLower()).ToList().Count == 0)
+            //int index = unitOfWork.CarCategories.GetAll().ToList().FindIndex(c => c.Category.ToLower().Equals(carCategory.Category.ToLower()));
+            //if (index <0)
             {
                 try
                 {
@@ -102,6 +121,11 @@ namespace RentalCars.BLL
                 return false;
         }
 
+        public void RemoveCarCategory(CarCategory category) {
+            unitOfWork.CarCategories.Remove(category);
+            unitOfWork.Complete();
+        } 
+
         public double CalculateRentPrice(TimeSpan ts, CarCategory carCategory, int milage)
         {
             int days = (int)Math.Ceiling(ts.TotalDays);
@@ -109,24 +133,34 @@ namespace RentalCars.BLL
                     + (Constants.KilometerPrice * milage * carCategory.KilometerPriceMultiplier);
                 return price;            
         }
+
         //public bool EndBooking(Booking booking,int milage, double price)
         public bool EndBooking(int bookingNr, DateTime rentalEndDateTime, int milageOnRentEnd, out double price)
         {
+            //TODO: add new property to booking> end milage?
             Booking booking = unitOfWork.Bookings.Get(bookingNr);
-            if (booking == null || booking.IsActive != true || booking.RentalDateTime > rentalEndDateTime)
+            if (booking == null || booking.IsActive == false || booking.RentalDateTime > rentalEndDateTime)
             {
                 price = -1;
                 return false;
             }
+            //update booking info
+            booking.ReturnDateTime = rentalEndDateTime;
+            booking.IsActive = false;
             unitOfWork.Bookings.Update(booking.BookingNr, booking);
-            Car car = booking.RentedCar;
-            car.IsRented = false;
-            unitOfWork.Cars.Update(car.RegNr, car);
-            unitOfWork.Complete();
+            
+            //Call the calculation function
             TimeSpan? t = booking.ReturnDateTime - booking.RentalDateTime;
             if (t.HasValue)
             {
                 price = CalculateRentPrice(t.Value, booking.RentedCar.Category,milageOnRentEnd);
+
+                //Update car information.
+                Car car = booking.RentedCar;
+                car.IsRented = false;
+                car.Milage = milageOnRentEnd;
+                unitOfWork.Cars.Update(car.RegNr, car);
+                unitOfWork.Complete();
                 return true;
             }
             else
@@ -135,9 +169,11 @@ namespace RentalCars.BLL
                 return false;
             }
         }
-        public void CancelBooking()
-        {
 
+        public void RemoveBooking(Booking booking)
+        {
+            unitOfWork.Bookings.Remove(booking);
+            unitOfWork.Complete();
         }
 
         public void Dispose()

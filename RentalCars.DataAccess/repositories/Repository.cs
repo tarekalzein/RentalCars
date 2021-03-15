@@ -43,8 +43,8 @@ namespace RentalCars.DataAccess.repositories
         }
 
         public void Remove(TEntity entity)
-        {
-            Context.Set<TEntity>().Remove(entity);
+        {            
+                Context.Set<TEntity>().Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
