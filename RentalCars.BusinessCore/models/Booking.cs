@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace RentalCars.BusinessCore.models
         [Key]
         public int BookingNr { get; set; }
 
-        public Car RentedCar { get; set; }
+        public virtual Car RentedCar { get; set; }
 
         public DateTime RentalDateTime { get; set; }
 

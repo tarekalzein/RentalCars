@@ -63,6 +63,22 @@
     <Compile Include="Migrations\202103130946510_AllowNullsInBookingReturnDateTime2.designer.cs">
       <DependentUpon>202103130946510_AllowNullsInBookingReturnDateTime2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103162132553_FixingIntitialModel.cs" />
+    <Compile Include="Migrations\202103162132553_FixingIntitialModel.designer.cs">
+      <DependentUpon>202103162132553_FixingIntitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103162156123_FixingIntitialModel1.cs" />
+    <Compile Include="Migrations\202103162156123_FixingIntitialModel1.designer.cs">
+      <DependentUpon>202103162156123_FixingIntitialModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103162259121_FixingIntitialModel2.cs" />
+    <Compile Include="Migrations\202103162259121_FixingIntitialModel2.designer.cs">
+      <DependentUpon>202103162259121_FixingIntitialModel2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103162321437_FixingIntitialModel3.cs" />
+    <Compile Include="Migrations\202103162321437_FixingIntitialModel3.designer.cs">
+      <DependentUpon>202103162321437_FixingIntitialModel3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RentalCarsDbContext.cs" />
@@ -72,7 +88,9 @@
     <Compile Include="repositories\Repository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="EntityConfiguration\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
@@ -92,6 +110,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103130946510_AllowNullsInBookingReturnDateTime2.resx">
       <DependentUpon>202103130946510_AllowNullsInBookingReturnDateTime2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103162132553_FixingIntitialModel.resx">
+      <DependentUpon>202103162132553_FixingIntitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103162156123_FixingIntitialModel1.resx">
+      <DependentUpon>202103162156123_FixingIntitialModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103162259121_FixingIntitialModel2.resx">
+      <DependentUpon>202103162259121_FixingIntitialModel2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103162321437_FixingIntitialModel3.resx">
+      <DependentUpon>202103162321437_FixingIntitialModel3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

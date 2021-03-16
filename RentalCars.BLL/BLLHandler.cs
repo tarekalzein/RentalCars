@@ -3,6 +3,7 @@ using RentalCars.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 
 namespace RentalCars.BLL
 {
@@ -13,13 +14,14 @@ namespace RentalCars.BLL
         public BLLHandler()
         {
             unitOfWork = new UnitOfWork(new RentalCarsDbContext());
+
         }
 
-        public List<Booking> GetAllBookings() => unitOfWork.Bookings.GetAll().ToList();
+        public List<Booking> GetAllBookings() => unitOfWork.Bookings.GetAllBookings().ToList();
 
-        public List<Booking> GetActiveBookings() => unitOfWork.Bookings.GetAll().Where(x => x.IsActive = true).ToList();
+        public List<Booking> GetActiveBookings() => unitOfWork.Bookings.GetAllBookings().Where(x => x.IsActive == true).ToList();
 
-        public Booking GetBooking(int id) => unitOfWork.Bookings.Get(id);
+        public Booking GetBooking(int id) => unitOfWork.Bookings.GetBooking(id);
 
         public bool CreateBooking(Booking booking, out int bookingNr)
         {
@@ -67,11 +69,13 @@ namespace RentalCars.BLL
 
         public List<Car> GetAvailableCars() => unitOfWork.Cars.GetAll().Where(x => x.IsRented = false).ToList();
 
-        public Car FindCarByRegNr(string regNr) => unitOfWork.Cars.GetAll().Where(x=>x.RegNr.ToUpper().Equals(regNr.ToUpper())).FirstOrDefault();
+        //public Car FindCarByRegNr(string regNr) => unitOfWork.Cars.GetAll().Where(x=>x.RegNr.ToUpper().Equals(regNr.ToUpper())).FirstOrDefault();
+        public Car FindCarByRegNr(string regNr) => unitOfWork.Cars.GetCar( regNr);
+
 
         public List<Car> GetRentedCars() => unitOfWork.Cars.GetAll().Where(x => x.IsRented = true).ToList();
 
-        public Car GetCar(string regID) => unitOfWork.Cars.Get(regID.ToUpper());
+        public Car GetCar(string regID) => unitOfWork.Cars.GetCar(regID);
 
         public bool CreateCar(Car car)
         {

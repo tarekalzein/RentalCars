@@ -14,12 +14,14 @@ namespace RentalCars.BusinessCore.models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string RegNr { get; set; }
 
-        public CarCategory Category { get; set; }
+        [ForeignKey("Category")]
+        public int CategoryID { get; set; }
+
+        public virtual CarCategory Category { get; set; }
 
         public int Milage { get; set; }
 
         public bool IsRented { get; set; }
-
 
         private Car()
         {

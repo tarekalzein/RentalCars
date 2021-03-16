@@ -24,6 +24,7 @@ namespace RentalCars
     {
         BLLHandler Handler;
         Booking Booking;
+        Car car;
         public BookingWindow(BLLHandler handler)
         {
             Handler = handler;
@@ -87,14 +88,12 @@ namespace RentalCars
                         if (String.IsNullOrEmpty(mileageTxtBox.Text))
                         {
                             err = "Please add mileage";
-                        }
-                                          
+                        }                                          
                     }
                     else
                     {
                         err = "Please Select minutes";
-                    }
-                    
+                    }                    
                 }
                 else
                 {
@@ -110,8 +109,8 @@ namespace RentalCars
             {
                 double price;
                 DateTime endRentDateTime = endDateDatePicker.SelectedDate.Value.Date;
-                endRentDateTime.AddHours(endHourCbox.SelectedIndex);
-                endRentDateTime.AddMinutes(endMinuteCbox.SelectedIndex);
+                endRentDateTime.AddHours(double.Parse(endHourCbox.Text));
+                endRentDateTime.AddMinutes(double.Parse(endMinuteCbox.Text));
                 int mileageOnRentEnd = int.Parse(mileageTxtBox.Text);
 
                 if (Booking.RentalDateTime > endRentDateTime)
@@ -124,10 +123,8 @@ namespace RentalCars
                     MessageBox.Show("Mileage on rent end can't be smaller than mileage before rent");
                     return;
                 }
-                //bool result = Handler.EndBooking(Booking.BookingNr, endRentDateTime, mileageOnRentEnd, out price);
-                //MessageBox.Show($"Booking nr. {Booking.BookingNr} has ended. \n Tota price= {price}");
-
-                MessageBox.Show("ENDED");
+                bool result = Handler.EndBooking(Booking.BookingNr, endRentDateTime, mileageOnRentEnd, out price);
+                MessageBox.Show($"Booking nr. {Booking.BookingNr} has ended. \n Tota price= {price}");
             }
             else
             {
@@ -138,7 +135,50 @@ namespace RentalCars
 
         private void createBookingButton_click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Create booking button clicked");
+            string err = "";
+            if (car != null)
+            {               
+                if(startDateDatePicker.SelectedDate.HasValue)
+                {
+                    if(startHourCbox.SelectedItem != null && startMinuteCbox.SelectedItem != null)
+                    {
+                        if (customerDatebirthDatepicker.SelectedDate == null)
+                            err = "Please select customer birthdate";
+                    }
+                    else
+                    {
+                        err = "Please select start time for this rental";
+                    }
+                }
+                else
+                {
+                    err = "Please select a start date";
+                }                
+            }
+            else
+            {
+                err="Can't get this car";
+            }
+            if (String.IsNullOrEmpty(err))
+            {
+                DateTime startRentDateTime = startDateDatePicker.SelectedDate.Value.Date;
+                startRentDateTime.AddHours(double.Parse(startHourCbox.Text));
+                startRentDateTime.AddMinutes(double.Parse(startMinuteCbox.Text));
+                Booking booking = new Booking(car, startRentDateTime, customerDatebirthDatepicker.SelectedDate.Value.Date);
+                int bookingNr;
+                bool result = Handler.CreateBooking(booking, out bookingNr);
+                if (result)
+                {
+                    bookingNrLabel.Content = bookingNr.ToString();
+                    MessageBox.Show($"Booking created successfully. Booking Number is: {bookingNr}");
+                }
+                else
+                    MessageBox.Show("Error creating the booking. Check with System administrator");
+            }
+            else
+            {
+                MessageBox.Show(err);
+            }
 
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -182,16 +222,16 @@ namespace RentalCars
         {
             if (!String.IsNullOrEmpty(CarRegNrTxtBox.Text))
             {
-                Car car = Handler.FindCarByRegNr(CarRegNrTxtBox.Text);
-                if (car != null)
+               Car c = Handler.FindCarByRegNr(CarRegNrTxtBox.Text);
+                if (c != null)
                 {
                     
-                    if (!car.IsRented)
+                    if (!c.IsRented)
                     {
-                        carRegNrLabel.Content = car.RegNr;
-                        //carcategorylabel.Content = car.Category.Id;
-                        MessageBox.Show(car.Category.ToString());
-                        mileageLabel.Content = car.Milage;
+                        carRegNrLabel.Content = c.RegNr;
+                        carCategoryLabel.Content = c.Category.Category;
+                        mileageLabel.Content = c.Milage;
+                        car = c;
                     }
                     else
                     {
@@ -201,6 +241,7 @@ namespace RentalCars
                 else
                 {
                     MessageBox.Show("Car not found");
+                    car = null;
                 }
             }
         }

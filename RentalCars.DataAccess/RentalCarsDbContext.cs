@@ -7,14 +7,22 @@ namespace RentalCars.DataAccess
     {
         public RentalCarsDbContext()
         {
-
+            this.Configuration.LazyLoadingEnabled = false;
         }
-        public DbSet<Car> Cars { get; set; }
+        public virtual DbSet<Car> Cars { get; set; }
 
-        public DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<Booking> Bookings { get; set; }
 
-        public DbSet<CarCategory> CarCategories { get; set; }
+        public virtual DbSet<CarCategory> CarCategories { get; set; }
 
-        public DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

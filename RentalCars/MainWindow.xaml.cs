@@ -24,7 +24,7 @@ namespace RentalCars
         {
             handler = new BLLHandler();
             ActiveRentals_datagrid.ItemsSource = handler.GetActiveBookings();
-            MessageBox.Show(handler.GetCar("ABC123").Category.ToString());
+            
             //Dummy dummy = new Dummy();
             //ActiveRentals_datagrid.ItemsSource = dummy.GetDummyBookings();
         }
