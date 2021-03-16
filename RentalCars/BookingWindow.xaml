@@ -337,20 +337,22 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Label Content="Booking nr." Style="{DynamicResource LabelStyle1}"/>
-                            <Label Grid.Row="1" Content="Car" Style="{DynamicResource LabelStyle1}"/>
-                            <Label Grid.Row="2" Content="Car Type" Style="{DynamicResource LabelStyle1}" />
-                            <Label Grid.Row="3" Content="Mileage" Style="{DynamicResource LabelStyle1}"/>
+                            <Label Grid.Row="2" Content="Car" Style="{DynamicResource LabelStyle1}"/>
+                            <Label Grid.Row="3" Content="Car Type" Style="{DynamicResource LabelStyle1}" />
+                            <Label Grid.Row="4" Content="Mileage" Style="{DynamicResource LabelStyle1}"/>
                             <Grid Grid.Row="1" Grid.Column="1">
-                                <TextBox x:Name="CarRegNrTxtBox" Style="{DynamicResource TextBoxStyle1}"/>
-                                <Button x:Name="searchButton" BorderThickness="0" Width="30" HorizontalAlignment="Right" Background="Transparent">
+                                <TextBox x:Name="CarRegNrTxtBox" Style="{DynamicResource TextBoxStyle1}" KeyDown="CarRegNrTxtBox_KeyDown"/>
+                                <Button x:Name="searchButton" BorderThickness="0" Width="30" HorizontalAlignment="Right" Background="Transparent" Click="searchButton_Click">
                                     <Image Source="assets/search_icon.png" Width="25" Height="25"/>
                                 </Button>
                             </Grid >
                             <Label x:Name="bookingNrLabel" Grid.Column="1"/>
-                            <Label x:Name="carCategoryLabel" Grid.Row="2" Grid.Column="1" Content="Car category"/>
-                            <Label x:Name="mileageLabel" Grid.Row="3" Grid.Column="1" Content="00000"/>
+                            <Label x:Name="carRegNrLabel" Grid.Row="2" Grid.Column="1"/>
+                            <Label x:Name="carCategoryLabel" Grid.Row="3" Grid.Column="1" Content="Car category"/>
+                            <Label x:Name="mileageLabel" Grid.Row="4" Grid.Column="1" Content="00000"/>
                         </Grid>
                     </GroupBox>
                 </Grid>

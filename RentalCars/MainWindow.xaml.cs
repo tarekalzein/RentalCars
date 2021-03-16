@@ -17,15 +17,16 @@ namespace RentalCars
         public MainWindow()
         {
             InitializeComponent();
-            handler = new BLLHandler();
-
-            //ActiveRentals_datagrid.ItemsSource = handler.GetActiveBookings();
+           
 
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Dummy dummy = new Dummy();
-            ActiveRentals_datagrid.ItemsSource = dummy.GetDummyBookings();
+            handler = new BLLHandler();
+            ActiveRentals_datagrid.ItemsSource = handler.GetActiveBookings();
+            MessageBox.Show(handler.GetCar("ABC123").Category.ToString());
+            //Dummy dummy = new Dummy();
+            //ActiveRentals_datagrid.ItemsSource = dummy.GetDummyBookings();
         }
 
         private void NewBooking_ButtonClick(object sender, RoutedEventArgs e)

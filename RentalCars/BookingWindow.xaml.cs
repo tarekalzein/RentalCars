@@ -164,5 +164,45 @@ namespace RentalCars
             e.Handled = regex.IsMatch(e.Text);
 
         }
+
+        private void CarRegNrTxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Return)
+            {
+                SearchCar();
+            }
+        }
+
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchCar();
+        }
+
+        private void SearchCar()
+        {
+            if (!String.IsNullOrEmpty(CarRegNrTxtBox.Text))
+            {
+                Car car = Handler.FindCarByRegNr(CarRegNrTxtBox.Text);
+                if (car != null)
+                {
+                    
+                    if (!car.IsRented)
+                    {
+                        carRegNrLabel.Content = car.RegNr;
+                        //carcategorylabel.Content = car.Category.Id;
+                        MessageBox.Show(car.Category.ToString());
+                        mileageLabel.Content = car.Milage;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The Selected car is not available");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Car not found");
+                }
+            }
+        }
     }
 }

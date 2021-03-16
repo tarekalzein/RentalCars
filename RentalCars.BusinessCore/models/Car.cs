@@ -27,7 +27,7 @@ namespace RentalCars.BusinessCore.models
         }
         public Car(string regNr, CarCategory category, int milage)
         {
-            RegNr = regNr;
+            RegNr = regNr.ToUpper();
             Category = category;
             Milage = milage;
             IsRented = false;

@@ -67,9 +67,11 @@ namespace RentalCars.BLL
 
         public List<Car> GetAvailableCars() => unitOfWork.Cars.GetAll().Where(x => x.IsRented = false).ToList();
 
+        public Car FindCarByRegNr(string regNr) => unitOfWork.Cars.GetAll().Where(x=>x.RegNr.ToUpper().Equals(regNr.ToUpper())).FirstOrDefault();
+
         public List<Car> GetRentedCars() => unitOfWork.Cars.GetAll().Where(x => x.IsRented = true).ToList();
 
-        public Car GetCar(string regID) => unitOfWork.Cars.Get(regID);
+        public Car GetCar(string regID) => unitOfWork.Cars.Get(regID.ToUpper());
 
         public bool CreateCar(Car car)
         {

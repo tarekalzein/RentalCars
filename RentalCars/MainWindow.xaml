@@ -129,8 +129,8 @@
                 </StackPanel>
                 <StackPanel Margin="5" HorizontalAlignment="Stretch" >
                     <Button Content="New Booking" VerticalAlignment="Top" Click="NewBooking_ButtonClick" Margin="5" Padding="5" Width="160" Style="{DynamicResource ButtonStyleRoundCorners}"/>
-                    <Button Content="Car Manager" Margin="5" Padding="5" Width="160" Style="{DynamicResource ButtonStyleRoundCorners}"/>
                     <Button Content="Car Categories" Margin="5" Padding="5" Width="160" Style="{DynamicResource ButtonStyleRoundCorners}"/>
+                    <Button Content="Car Manager" Margin="5" Padding="5" Width="160" Style="{DynamicResource ButtonStyleRoundCorners}"/>
 
                 </StackPanel>
             </DockPanel>
