@@ -1,9 +1,6 @@
 ﻿using RentalCars.BusinessCore.models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentalCars
 {
@@ -23,8 +20,8 @@ namespace RentalCars
 
         private void CreateMockData()
         {
-            CarCategories.Add(new CarCategory("Compact", 1, 0) );
-            CarCategories.Add(new CarCategory("Premium", 1.2, 1) );
+            CarCategories.Add(new CarCategory("Compact", 1, 0));
+            CarCategories.Add(new CarCategory("Premium", 1.2, 1));
             CarCategories.Add(new CarCategory("Minivan", 1.7, 1.5));
 
             Cars.Add(new Car("Test1", CarCategories[0], 0));

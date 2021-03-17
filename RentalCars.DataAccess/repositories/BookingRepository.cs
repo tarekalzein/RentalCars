@@ -13,8 +13,8 @@ namespace RentalCars.DataAccess.repositories
 
         }
 
-        public IEnumerable<Booking> GetAllBookings() => (Context as RentalCarsDbContext).Bookings.Include(x => x.RentedCar).Include(x=>x.RentedCar.Category);        
+        public IEnumerable<Booking> GetAllBookings() => (Context as RentalCarsDbContext).Bookings.Include(x => x.RentedCar).Include(x => x.RentedCar.Category);
 
-        public Booking GetBooking(int id) => (Context as RentalCarsDbContext).Bookings.Include(c => c.RentedCar).Include(c=>c.RentedCar.Category).SingleOrDefault(x => x.BookingNr == id);
+        public Booking GetBooking(int id) => (Context as RentalCarsDbContext).Bookings.Include(c => c.RentedCar).Include(c => c.RentedCar.Category).SingleOrDefault(x => x.BookingNr == id);
     }
 }

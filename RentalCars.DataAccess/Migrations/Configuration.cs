@@ -1,10 +1,7 @@
 ﻿namespace RentalCars.DataAccess.Migrations
 {
     using RentalCars.BusinessCore.models;
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<RentalCars.DataAccess.RentalCarsDbContext>
     {
@@ -19,9 +16,6 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
-
-            //TODO: Add creation of the 3 default categories here.
-
 
             context.Cars.AddOrUpdate(x => x.RegNr,
                 new Car("TTT123", new CarCategory("Compact", 1, 0), 0));

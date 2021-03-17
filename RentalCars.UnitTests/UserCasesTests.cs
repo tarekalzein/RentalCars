@@ -10,9 +10,9 @@ namespace RentalCars.UnitTests
     public class UserCasesTests
     {
         int TEST_PRICE_CORRECT_VALUE = 499;
-        BLLHandler bllHandler = new BLLHandler();        
+        BLLHandler bllHandler = new BLLHandler();
 
-         [TestMethod]
+        [TestMethod]
         public void CreateBooking_BookingIsNull_ReturnsFalse()
         {
             int bookingNr;
@@ -30,18 +30,18 @@ namespace RentalCars.UnitTests
             int success = CreateTestData();
             CarCategory carCategory = bllHandler.GetAllCarCategories().Where(x => x.Category.ToLower().Equals("testcategory")).First();
             Car car = bllHandler.GetCar("TST123");
-            
+
             //Test and Assert
             if (success != -1 && carCategory != null && car != null)
             {
                 Booking booking = new Booking(car, new DateTime(2021, 03, 13, 13, 00, 00), new DateTime(1985, 01, 23));
                 int bookingNr;
-                bool result = bllHandler.CreateBooking(booking, out bookingNr);               
+                bool result = bllHandler.CreateBooking(booking, out bookingNr);
                 Assert.IsTrue(result);
                 Assert.IsTrue(bookingNr > 0);
 
                 //Comment out this line to preserve data, or add breakpoint to check DB before deleting.
-                RemoveTestData(carCategory, car,booking);
+                RemoveTestData(carCategory, car, booking);
             }
             else
                 Assert.Fail();
@@ -49,7 +49,7 @@ namespace RentalCars.UnitTests
 
         [TestMethod]
         public void CreateBooking_CarStatusIsRented_Returnsfalse()
-        {            
+        {
             //Prepare test data
             int success = CreateTestData();
             CarCategory carCategory = bllHandler.GetAllCarCategories().Where(x => x.Category.ToLower().Equals("testcategory")).First();
@@ -81,7 +81,7 @@ namespace RentalCars.UnitTests
             CarCategory carCategory = bllHandler.GetAllCarCategories().Where(x => x.Category.ToLower().Equals("testcategory")).First();
             Car car = bllHandler.GetCar("TST123");
 
-            if (success!= -1 && carCategory != null && car != null)
+            if (success != -1 && carCategory != null && car != null)
             {
                 Booking booking = new Booking(car, new DateTime(2021, 03, 13, 13, 00, 00), new DateTime(1985, 01, 23));
                 int bookingNr;
@@ -90,13 +90,13 @@ namespace RentalCars.UnitTests
                 Console.WriteLine("Car rent status before ending booking " + car.IsRented);
 
                 //Test data: milageOnRentEnd = 100 ; 
-                bool result = bllHandler.EndBooking(bookingNr, new DateTime(2021, 03, 14,13, 00, 00), 100, out price);
+                bool result = bllHandler.EndBooking(bookingNr, new DateTime(2021, 03, 14, 13, 00, 00), 100, out price);
                 Assert.IsTrue(result);
                 Assert.IsTrue(price > 0);
                 Assert.IsFalse(car.IsRented);
                 Assert.IsFalse(booking.IsActive);
                 Assert.AreEqual(100, car.Milage);
-                
+
                 //Comment out this line to preserve data, or add breakpoint to check DB before deleting.
                 RemoveTestData(carCategory, car, booking);
             }
@@ -107,7 +107,7 @@ namespace RentalCars.UnitTests
         [TestMethod]
         public void CreateAndEndMultipleBookingsOneAfterAnother_TwoBookingsWithTestData_ReturnTrueWithPrice()
         {
-             int success = CreateTestData();
+            int success = CreateTestData();
             CarCategory carCategory = bllHandler.GetAllCarCategories().Where(x => x.Category.ToLower().Equals("testcategory")).First();
             Car car = bllHandler.GetCar("TST123");
 
@@ -147,7 +147,7 @@ namespace RentalCars.UnitTests
             else
                 Assert.Fail();
         }
-        
+
         //return 0 for success, 1 for already exist, -1 on failure
         private int CreateTestData()
         {
@@ -156,7 +156,7 @@ namespace RentalCars.UnitTests
             Car testCar = new Car("TST123", testCategory, 0);
 
             //Check if test data already exists in DB
-            bool testCategoryExists = (bllHandler.GetAllCarCategories().Where(x => x.Category.ToLower().Equals(testCategory.Category.ToLower())).ToList().Count >0);
+            bool testCategoryExists = (bllHandler.GetAllCarCategories().Where(x => x.Category.ToLower().Equals(testCategory.Category.ToLower())).ToList().Count > 0);
             bool testCarExists = bllHandler.GetCar(testCar.RegNr) != null;
 
             if (testCategoryExists || testCarExists)

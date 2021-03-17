@@ -9,6 +9,7 @@ namespace RentalCars.DataAccess
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
+
         public virtual DbSet<Car> Cars { get; set; }
 
         public virtual DbSet<Booking> Bookings { get; set; }
@@ -17,9 +18,6 @@ namespace RentalCars.DataAccess
 
         public virtual DbSet<Customer> Customers { get; set; }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

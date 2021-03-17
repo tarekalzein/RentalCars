@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace RentalCars.UnitTests.mock
 {
-    public class TestDbSet<T> : DbSet<T>, IQueryable,IEnumerable<T> where T: class
+    public class TestDbSet<T> : DbSet<T>, IQueryable, IEnumerable<T> where T : class
     {
         ObservableCollection<T> _data;
         IQueryable _query;

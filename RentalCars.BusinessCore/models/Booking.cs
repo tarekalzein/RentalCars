@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentalCars.BusinessCore.models
 {
@@ -25,10 +20,12 @@ namespace RentalCars.BusinessCore.models
 
         //Functionality can extended to save list of customers.
         //public Customer Customer { get; set; }
+
         private Booking()
         {
 
         }
+
         public Booking(Car rentedCar, DateTime rentalDateTime, DateTime customerBirthdate)
         {
             RentedCar = rentedCar;

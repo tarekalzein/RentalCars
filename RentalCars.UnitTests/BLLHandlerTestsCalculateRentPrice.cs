@@ -33,7 +33,7 @@ namespace RentalCars.UnitTests
             TimeSpan t = d1 - d2;
 
             CarCategory category = new CarCategory("Compact_test", 1, 0);
-            Assert.AreEqual(499,bllHandler.CalculateRentPrice(t, category, 10));
+            Assert.AreEqual(499, bllHandler.CalculateRentPrice(t, category, 10));
         }
         [TestMethod]
         public void CalculateRentPrice_CarIsCompactOneDayWithFewHoursRent_ReturnsPrice()
@@ -45,7 +45,7 @@ namespace RentalCars.UnitTests
             TimeSpan t = d1 - d2;
 
             CarCategory category = new CarCategory("Compact_test", 1, 0);
-            Assert.AreEqual(499*2, bllHandler.CalculateRentPrice(t, category, 10));
+            Assert.AreEqual(499 * 2, bllHandler.CalculateRentPrice(t, category, 10));
         }
         [TestMethod]
         public void CalculateRentPrice_CarIsPremiumOneDayRent_ReturnsPrice()

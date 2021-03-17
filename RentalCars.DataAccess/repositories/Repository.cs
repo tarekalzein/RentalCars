@@ -8,6 +8,10 @@ using System.Linq.Expressions;
 
 namespace RentalCars.DataAccess.repositories
 {
+    /// <summary>
+    /// Generic repository that implements the repository pattern to abstract the access to DBContext and reusing it among all entities.
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;
@@ -43,8 +47,8 @@ namespace RentalCars.DataAccess.repositories
         }
 
         public void Remove(TEntity entity)
-        {            
-                Context.Set<TEntity>().Remove(entity);
+        {
+            Context.Set<TEntity>().Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
@@ -58,6 +62,6 @@ namespace RentalCars.DataAccess.repositories
             if (entity == null)
                 return;
             Context.Entry(entity).CurrentValues.SetValues(updatedEntity);
-        }       
+        }
     }
 }

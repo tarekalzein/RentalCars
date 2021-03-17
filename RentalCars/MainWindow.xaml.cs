@@ -18,14 +18,14 @@ namespace RentalCars
         public MainWindow()
         {
             InitializeComponent();
-           
+
 
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             handler = new BLLHandler();
             ActiveRentals_datagrid.ItemsSource = handler.GetActiveBookings();
-            
+
             //Dummy dummy = new Dummy();
             //ActiveRentals_datagrid.ItemsSource = dummy.GetDummyBookings();
         }
@@ -38,7 +38,7 @@ namespace RentalCars
             bookingWindow.BookingCreated += OnBookingCreated;
         }
 
-        
+
 
         private void ActiveRentals_datagrid_SelectionChanged()
         {
@@ -48,7 +48,7 @@ namespace RentalCars
         private void ActiveRentals_datagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGrid dg = (DataGrid)sender;
-            if(  (dg.SelectedItem as Booking ) != null)
+            if ((dg.SelectedItem as Booking) != null)
             {
                 BookingWindow booking = new BookingWindow(handler, dg.SelectedItem as Booking);
                 booking.Show();

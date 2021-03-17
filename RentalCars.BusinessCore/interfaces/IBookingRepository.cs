@@ -1,9 +1,5 @@
 ﻿using RentalCars.BusinessCore.models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentalCars.BusinessCore.interfaces
 {
@@ -13,5 +9,5 @@ namespace RentalCars.BusinessCore.interfaces
         IEnumerable<Booking> GetAllBookings();
     }
 
-   
+
 }

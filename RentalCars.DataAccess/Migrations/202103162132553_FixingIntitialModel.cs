@@ -1,8 +1,7 @@
 ﻿namespace RentalCars.DataAccess.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class FixingIntitialModel : DbMigration
     {
         public override void Up()
@@ -14,7 +13,7 @@
             CreateIndex("dbo.Cars", "CategoryID");
             AddForeignKey("dbo.Cars", "CategoryID", "dbo.CarCategories", "Id", cascadeDelete: true);
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Cars", "CategoryID", "dbo.CarCategories");

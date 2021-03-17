@@ -2,19 +2,10 @@
 using RentalCars.BusinessCore.models;
 using RentalCars.events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RentalCars
 {
@@ -96,17 +87,17 @@ namespace RentalCars
                         if (String.IsNullOrEmpty(mileageTxtBox.Text))
                         {
                             err = "Please add mileage";
-                        }                                          
+                        }
                     }
                     else
                     {
                         err = "Please Select minutes";
-                    }                    
+                    }
                 }
                 else
                 {
                     err = "Please Select hour";
-                }                
+                }
             }
             else
             {
@@ -143,15 +134,14 @@ namespace RentalCars
             }
         }
 
-        
         private void createBookingButton_click(object sender, RoutedEventArgs e)
         {
             string err = "";
             if (car != null)
-            {               
-                if(startDateDatePicker.SelectedDate.HasValue)
+            {
+                if (startDateDatePicker.SelectedDate.HasValue)
                 {
-                    if(startHourCbox.SelectedItem != null && startMinuteCbox.SelectedItem != null)
+                    if (startHourCbox.SelectedItem != null && startMinuteCbox.SelectedItem != null)
                     {
                         if (customerDatebirthDatepicker.SelectedDate == null)
                             err = "Please select customer birthdate";
@@ -164,16 +154,16 @@ namespace RentalCars
                 else
                 {
                     err = "Please select a start date";
-                }                
+                }
             }
             else
             {
-                err="Can't get this car";
+                err = "Can't get this car";
             }
             if (String.IsNullOrEmpty(err))
             {
                 DateTime temp = startDateDatePicker.SelectedDate.Value.Date;
-                DateTime startRentDateTime = new DateTime(temp.Year,temp.Month,temp.Day, int.Parse(startHourCbox.Text), int.Parse(startMinuteCbox.Text),00);
+                DateTime startRentDateTime = new DateTime(temp.Year, temp.Month, temp.Day, int.Parse(startHourCbox.Text), int.Parse(startMinuteCbox.Text), 00);
 
                 Booking booking = new Booking(car, startRentDateTime, customerDatebirthDatepicker.SelectedDate.Value.Date);
                 int bookingNr;
@@ -194,7 +184,7 @@ namespace RentalCars
             }
 
         }
-        
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -221,7 +211,7 @@ namespace RentalCars
 
         private void CarRegNrTxtBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Return)
+            if (e.Key == Key.Return)
             {
                 SearchCar();
             }
@@ -236,10 +226,10 @@ namespace RentalCars
         {
             if (!String.IsNullOrEmpty(CarRegNrTxtBox.Text))
             {
-               Car c = Handler.FindCarByRegNr(CarRegNrTxtBox.Text);
+                Car c = Handler.FindCarByRegNr(CarRegNrTxtBox.Text);
                 if (c != null)
                 {
-                    
+
                     if (!c.IsRented)
                     {
                         carRegNrLabel.Content = c.RegNr;

@@ -3,10 +3,12 @@ using RentalCars.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Entity;
 
 namespace RentalCars.BLL
 {
+    /// <summary>
+    /// Hanlder class that works as an extra layer to perform business logic and verifications before performing actions on DbContext with unit of work.
+    /// </summary>
     public class BLLHandler
     {
         private readonly UnitOfWork unitOfWork;
@@ -14,7 +16,6 @@ namespace RentalCars.BLL
         public BLLHandler()
         {
             unitOfWork = new UnitOfWork(new RentalCarsDbContext());
-
         }
 
         public List<Booking> GetAllBookings() => unitOfWork.Bookings.GetAllBookings().ToList();
@@ -69,9 +70,7 @@ namespace RentalCars.BLL
 
         public List<Car> GetAvailableCars() => unitOfWork.Cars.GetAll().Where(x => x.IsRented = false).ToList();
 
-        //public Car FindCarByRegNr(string regNr) => unitOfWork.Cars.GetAll().Where(x=>x.RegNr.ToUpper().Equals(regNr.ToUpper())).FirstOrDefault();
-        public Car FindCarByRegNr(string regNr) => unitOfWork.Cars.GetCar( regNr);
-
+        public Car FindCarByRegNr(string regNr) => unitOfWork.Cars.GetCar(regNr);
 
         public List<Car> GetRentedCars() => unitOfWork.Cars.GetAll().Where(x => x.IsRented = true).ToList();
 
@@ -87,7 +86,7 @@ namespace RentalCars.BLL
                 unitOfWork.Complete();
                 return true;
             }
-            catch(Exception e)
+            catch
             {
                 return false;
             }
@@ -127,23 +126,29 @@ namespace RentalCars.BLL
                 return false;
         }
 
-        public void RemoveCarCategory(CarCategory category) {
+        public void RemoveCarCategory(CarCategory category)
+        {
             unitOfWork.CarCategories.Remove(category);
             unitOfWork.Complete();
-        } 
+        }
 
+        /// <summary>
+        /// Method that takes a time span between two dates, rounds partial hours to whole day.
+        /// </summary>
+        /// <param name="ts"> A time span betweena rental's start date/time and the end</param>
+        /// <param name="carCategory">the category of the car to get multiplier values</param>
+        /// <param name="milage">Mileage at car return</param>
+        /// <returns>the total price of rental</returns>
         public double CalculateRentPrice(TimeSpan ts, CarCategory carCategory, int milage)
         {
             int days = (int)Math.Ceiling(ts.TotalDays);
-                double price = (Constants.BaseDayRental * days * carCategory.BaseRentalMultiplier)
-                    + (Constants.KilometerPrice * milage * carCategory.KilometerPriceMultiplier);
-                return price;            
+            double price = (Constants.BaseDayRental * days * carCategory.BaseRentalMultiplier)
+                + (Constants.KilometerPrice * milage * carCategory.KilometerPriceMultiplier);
+            return price;
         }
 
-        //public bool EndBooking(Booking booking,int milage, double price)
         public bool EndBooking(int bookingNr, DateTime rentalEndDateTime, int milageOnRentEnd, out double price)
         {
-            //TODO: add new property to booking> end milage?
             Booking booking = unitOfWork.Bookings.Get(bookingNr);
             if (booking == null || booking.IsActive == false || booking.RentalDateTime > rentalEndDateTime)
             {
@@ -154,12 +159,12 @@ namespace RentalCars.BLL
             booking.ReturnDateTime = rentalEndDateTime;
             booking.IsActive = false;
             unitOfWork.Bookings.Update(booking.BookingNr, booking);
-            
+
             //Call the calculation function
             TimeSpan? t = booking.ReturnDateTime - booking.RentalDateTime;
             if (t.HasValue)
             {
-                price = CalculateRentPrice(t.Value, booking.RentedCar.Category,milageOnRentEnd);
+                price = CalculateRentPrice(t.Value, booking.RentedCar.Category, milageOnRentEnd);
 
                 //Update car information.
                 Car car = booking.RentedCar;
@@ -186,6 +191,5 @@ namespace RentalCars.BLL
         {
             unitOfWork.Dispose();
         }
-
     }
 }
