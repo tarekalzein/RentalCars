@@ -1,5 +1,6 @@
 ﻿using RentalCars.BLL;
 using RentalCars.BusinessCore.models;
+using RentalCars.events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,13 @@ namespace RentalCars
         BLLHandler Handler;
         Booking Booking;
         Car car;
+
+        public delegate void BookingEventHandler(object source, BookingEventInfo bookingInfo);
+
+        public event BookingEventHandler BookingCreated;
+        public event BookingEventHandler BookingEnded;
+
+
         public BookingWindow(BLLHandler handler)
         {
             Handler = handler;
@@ -108,9 +116,9 @@ namespace RentalCars
             if (String.IsNullOrEmpty(err))
             {
                 double price;
-                DateTime endRentDateTime = endDateDatePicker.SelectedDate.Value.Date;
-                endRentDateTime.AddHours(double.Parse(endHourCbox.Text));
-                endRentDateTime.AddMinutes(double.Parse(endMinuteCbox.Text));
+
+                DateTime temp = endDateDatePicker.SelectedDate.Value.Date;
+                DateTime endRentDateTime = new DateTime(temp.Year, temp.Month, temp.Day, int.Parse(endHourCbox.Text), int.Parse(endMinuteCbox.Text), 00);
                 int mileageOnRentEnd = int.Parse(mileageTxtBox.Text);
 
                 if (Booking.RentalDateTime > endRentDateTime)
@@ -124,6 +132,7 @@ namespace RentalCars
                     return;
                 }
                 bool result = Handler.EndBooking(Booking.BookingNr, endRentDateTime, mileageOnRentEnd, out price);
+                OnBookingEnded(Booking);
                 MessageBox.Show($"Booking nr. {Booking.BookingNr} has ended. \n Tota price= {price}");
                 this.Close();
             }
@@ -134,6 +143,7 @@ namespace RentalCars
             }
         }
 
+        
         private void createBookingButton_click(object sender, RoutedEventArgs e)
         {
             string err = "";
@@ -162,15 +172,16 @@ namespace RentalCars
             }
             if (String.IsNullOrEmpty(err))
             {
-                DateTime startRentDateTime = startDateDatePicker.SelectedDate.Value.Date;
-                startRentDateTime.AddHours(double.Parse(startHourCbox.Text));
-                startRentDateTime.AddMinutes(double.Parse(startMinuteCbox.Text));
+                DateTime temp = startDateDatePicker.SelectedDate.Value.Date;
+                DateTime startRentDateTime = new DateTime(temp.Year,temp.Month,temp.Day, int.Parse(startHourCbox.Text), int.Parse(startMinuteCbox.Text),00);
+
                 Booking booking = new Booking(car, startRentDateTime, customerDatebirthDatepicker.SelectedDate.Value.Date);
                 int bookingNr;
                 bool result = Handler.CreateBooking(booking, out bookingNr);
                 if (result)
                 {
                     bookingNrLabel.Content = bookingNr.ToString();
+                    OnBookingCreated(booking);
                     MessageBox.Show($"Booking created successfully. Booking Number is: {bookingNr}");
                     this.Close();
                 }
@@ -183,6 +194,7 @@ namespace RentalCars
             }
 
         }
+        
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -247,5 +259,18 @@ namespace RentalCars
                 }
             }
         }
+
+        protected virtual void OnBookingCreated(Booking booking)
+        {
+            if (BookingCreated != null)
+                BookingCreated(this, new BookingEventInfo { Booking = booking });
+        }
+
+        protected virtual void OnBookingEnded(Booking booking)
+        {
+            if (BookingEnded != null)
+                BookingEnded(this, new BookingEventInfo { Booking = booking });
+        }
+
     }
 }

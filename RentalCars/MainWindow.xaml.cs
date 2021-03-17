@@ -1,5 +1,6 @@
 ﻿using RentalCars.BLL;
 using RentalCars.BusinessCore.models;
+using RentalCars.events;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,7 +34,11 @@ namespace RentalCars
         {
             BookingWindow bookingWindow = new BookingWindow(handler);
             bookingWindow.Show();
+
+            bookingWindow.BookingCreated += OnBookingCreated;
         }
+
+        
 
         private void ActiveRentals_datagrid_SelectionChanged()
         {
@@ -47,6 +52,8 @@ namespace RentalCars
             {
                 BookingWindow booking = new BookingWindow(handler, dg.SelectedItem as Booking);
                 booking.Show();
+
+                booking.BookingEnded += OnBookingEnded;
             }
         }
 
@@ -70,6 +77,19 @@ namespace RentalCars
 
         private void AllBookingsButton_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Not Implemented yet");
+        }
+
+        private void OnBookingCreated(object source, BookingEventInfo bookingInfo)
+        {
+            ActiveRentals_datagrid.ItemsSource = handler.GetActiveBookings();
+            ActiveRentals_datagrid.Items.Refresh();
+        }
+
+        private void OnBookingEnded(object source, BookingEventInfo bookingInfo)
+        {
+            ActiveRentals_datagrid.ItemsSource = handler.GetActiveBookings();
+            ActiveRentals_datagrid.Items.Refresh();
         }
     }
 }

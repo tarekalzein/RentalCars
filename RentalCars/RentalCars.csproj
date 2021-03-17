@@ -96,6 +96,7 @@
       <DependentUpon>CarManagerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dummy.cs" />
+    <Compile Include="events\BookingEventInfo.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
