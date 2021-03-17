@@ -88,9 +88,7 @@
     <Compile Include="repositories\Repository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EntityConfiguration\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
