@@ -70,6 +70,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CarCategoriesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CarManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,6 +88,12 @@
     </Compile>
     <Compile Include="BookingWindow.xaml.cs">
       <DependentUpon>BookingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CarCategoriesWindow.xaml.cs">
+      <DependentUpon>CarCategoriesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CarManagerWindow.xaml.cs">
+      <DependentUpon>CarManagerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dummy.cs" />
     <Compile Include="MainWindow.xaml.cs">

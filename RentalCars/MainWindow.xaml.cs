@@ -56,5 +56,20 @@ namespace RentalCars
             handler.Dispose();
         }
 
+        private void CategoriesButton_Click(object sender, RoutedEventArgs e)
+        {
+            CarCategoriesWindow carCategoriesWindow = new CarCategoriesWindow(handler);
+            carCategoriesWindow.Show();
+        }
+
+        private void CarManagerButton_Click(object sender, RoutedEventArgs e)
+        {
+            CarManagerWindow carManager = new CarManagerWindow(handler);
+            carManager.Show();
+        }
+
+        private void AllBookingsButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

@@ -1,0 +1,22 @@
+﻿<Window x:Class="RentalCars.CarManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentalCars"
+        mc:Ignorable="d"
+        Title="CarManagerWindow" Height="450" Width="800" Background="DarkGray">
+    <Grid Margin="10">
+        <DataGrid x:Name="CarsDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Reg nr." Binding="{Binding RegNr}" Width="*"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category.Category}" Width="*"/>
+                <DataGridTextColumn Header="Mileage." Binding="{Binding Milage}" Width="*"/>
+                <DataGridTextColumn Header="Rented?" Binding="{Binding IsRented}" Width="*"/>
+            </DataGrid.Columns>
+
+
+        </DataGrid>
+
+    </Grid>
+</Window>

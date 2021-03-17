@@ -125,6 +125,7 @@ namespace RentalCars
                 }
                 bool result = Handler.EndBooking(Booking.BookingNr, endRentDateTime, mileageOnRentEnd, out price);
                 MessageBox.Show($"Booking nr. {Booking.BookingNr} has ended. \n Tota price= {price}");
+                this.Close();
             }
             else
             {
@@ -171,6 +172,7 @@ namespace RentalCars
                 {
                     bookingNrLabel.Content = bookingNr.ToString();
                     MessageBox.Show($"Booking created successfully. Booking Number is: {bookingNr}");
+                    this.Close();
                 }
                 else
                     MessageBox.Show("Error creating the booking. Check with System administrator");
